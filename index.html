@@ -498,6 +498,21 @@ body.sheet-open .sfab-wrap{display:none}
   .only-d{display:grid!important}
   .sfab-wrap{display:none}
 }
+
+/* v5: trust points as a fixed 2x2 grid; hero text lives in the flow so it can never spill out of the photo */
+.trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;margin:12px 0 0;padding:0;gap:10px}
+.trust div{flex:initial;min-width:0;align-items:flex-start;padding:12px}
+.trust b{font-size:14px}
+.hero-card{aspect-ratio:auto;max-height:none;min-height:340px;display:flex;align-items:flex-end}
+.hero-card>img{position:absolute;inset:0;width:100%;height:100%}
+.hero-txt{position:relative;left:auto;right:auto;bottom:auto;padding:22px 18px;width:100%}
+@media (min-width:640px){.hero-card{min-height:380px}.hero-txt{padding:32px}}
+@media (min-width:960px){
+  .shell .trust{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hero-card{min-height:420px}
+  .hero-txt{padding:44px;max-width:680px}
+  .hero-txt h1{font-size:clamp(38px,3.9vw,60px)}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .mb-media img:first-child{opacity:1}
