@@ -77,14 +77,15 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;backgroun
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;justify-self:center}
 .brand svg{height:36px;width:auto}
 .brand .wm{display:none;font-family:var(--f-display);font-size:19px;letter-spacing:.14em;text-transform:uppercase}
-.hright{display:flex;align-items:center;gap:2px}
+.hright{display:flex;align-items:center;gap:2px;grid-column:3;justify-content:flex-end}
 .search{display:flex;align-items:center;gap:8px;height:46px;border-radius:var(--r-pill);background:var(--surface);border:1.5px solid var(--line);padding:0 6px 0 16px;transition:border-color .2s;min-width:0}
 .search:focus-within{border-color:var(--gold)}
 .search svg{width:19px;height:19px;color:var(--muted);flex:none}
 .search input{border:0;background:transparent;outline:0;width:100%;min-width:0;font-size:15.5px}
 .search input::placeholder{color:var(--muted)}
 .search .go{border:0;border-radius:var(--r-pill);height:34px;padding:0 14px;font-weight:700;font-size:13.5px;cursor:pointer;color:var(--on-gold);background:linear-gradient(135deg,var(--gold-hi),var(--gold))}
-.hsearch{padding-bottom:10px}
+.search{margin:0}
+.hcenter{align-items:center}
 .hnav{display:none}
 .cta-top{display:none}
 .theme-btn{display:flex;gap:6px;width:auto;padding:0 10px;border-radius:var(--r-pill);font-size:13px;font-weight:600}
@@ -162,7 +163,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;backgroun
 .badge{position:absolute;top:9px;left:9px;z-index:2;font-size:11px;font-weight:700;letter-spacing:.03em;padding:4px 9px;border-radius:var(--r-pill);background:color-mix(in srgb,var(--surface) 90%,transparent);color:var(--ink);max-width:calc(100% - 60px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pcount{position:absolute;top:9px;right:9px;z-index:2;font-size:11.5px;font-weight:700;padding:4px 8px;border-radius:var(--r-pill);background:color-mix(in srgb,var(--surface) 90%,transparent);color:var(--ink);display:flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
 .pcount svg{width:12px;height:12px}
-.pcard{display:flex;flex-direction:column;gap:10px;min-width:0;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;transition:box-shadow .25s,border-color .25s}
+.pcard{position:relative;display:flex;flex-direction:column;gap:10px;min-width:0;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;transition:box-shadow .25s,border-color .25s}
 .pcard:hover{box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
 .pbody{display:flex;flex-direction:column;gap:5px;min-width:0;padding:2px 4px 4px;flex:1}
 .pname{font-size:18px;line-height:1.2}
@@ -458,6 +459,45 @@ body.sheet-open .fab{display:none}
   .cta-top{--h:46px}
   .hrow .search{height:46px}
 }
+
+/* v4: mobile chrome = one-line header that leaves on scroll + two floating buttons */
+.only-d{display:none!important}
+header.top{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.fab{width:58px;height:58px;padding:0;justify-content:center;border-radius:50%;color:#14110E}
+.fab svg{width:28px;height:28px}
+.sfab-wrap{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:10px;pointer-events:none;visibility:hidden}
+.sfab{pointer-events:auto;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:var(--surface);color:var(--gold-ink);border:2px solid var(--gold);box-shadow:var(--shadow),0 0 0 4px color-mix(in srgb,var(--gold) 14%,transparent)}
+.sfab svg{width:24px;height:24px}
+.stip{pointer-events:auto;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:600;font-size:14px;padding:10px 14px;border-radius:14px;box-shadow:var(--shadow);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;white-space:nowrap}
+.sfab-wrap.tip .stip{opacity:1;transform:none}
+body.sheet-open .sfab-wrap{display:none}
+.drawer .panel{overflow:hidden;padding:0;gap:0}
+.dscroll{flex:1;overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 22px 20px;display:flex;flex-direction:column;gap:20px;overscroll-behavior:contain}
+.dsearch{padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--surface)}
+.dsearch .search{background:var(--bg)}
+.warn{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink);background:var(--surface-2);border-radius:12px;padding:10px 12px}
+.warn svg{width:17px;height:17px;flex:none;color:var(--gold-ink);margin-top:1px}
+@media (max-width:959px){
+  .drawer{grid-template-columns:80vw 1fr}
+  .hrow{height:60px}
+  body.nav-hidden header.top{transform:translateY(-110%)}
+  body.nav-hidden .sfab-wrap{visibility:visible}
+  body.nav-hidden .sfab{animation:drop .6s cubic-bezier(.3,1.25,.5,1) both}
+  @keyframes drop{0%{transform:translateY(calc(-100svh + 150px)) scale(.7);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+  /* bigger photos on horizontal cards: image runs the full card height */
+  .list>.pcard,.pcard.wide,.homelist>.pcard{grid-template-columns:46% minmax(0,1fr);align-items:stretch}
+  .list>.pcard .media,.pcard.wide .media,.homelist>.pcard .media{aspect-ratio:auto;height:100%;min-height:210px}
+  .pbody{justify-content:center}
+}
+@media (min-width:640px) and (max-width:959px){
+  .list>.pcard .media{height:auto;aspect-ratio:4/5;min-height:0}
+  .wide-row>.pcard.wide .media{height:auto;aspect-ratio:4/5;min-height:0}
+  .homelist>.pcard .media{height:auto;aspect-ratio:4/5;min-height:0}
+}
+@media (min-width:960px){
+  .only-d{display:grid!important}
+  .sfab-wrap{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .mb-media img:first-child{opacity:1}
@@ -496,6 +536,8 @@ body.sheet-open .fab{display:none}
     <symbol id="i-truck" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M2 6h12v10H2zM14 9h4l3 3v4h-7z"/><circle cx="6" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" d="M2.5 10h19M6 15h4"/></symbol>
     <symbol id="i-ruler" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="m3 17 14-14 4 4L7 21z"/><path stroke="currentColor" stroke-width="1.8" d="m7 13 2 2m1-5 2 2m1-5 2 2"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path fill="currentColor" d="M9.2 7.6c.3 0 .5 0 .7.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.4.3.3.6-.1.8-.8 1.6-1.7 1.6-2.9-.2-6-3.2-6.1-6.1 0-.9.6-1.8 1.1-1.9Z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m6-6-6 6 6 6"/></symbol>
   </defs>
 </svg>
@@ -513,13 +555,11 @@ body.sheet-open .fab{display:none}
         <form class="search" data-search role="search"><svg><use href="#i-search"/></svg><label class="sr" for="q1">Buscar muebles</label><input id="q1" type="search" placeholder="¿Qué estás buscando? Ej: cómoda, mesa de luz…" autocomplete="off"><button class="go" type="submit">Buscar</button></form>
       </div>
       <div class="hright">
+        <button class="icon-btn only-m" data-open-search aria-label="Buscar"><svg><use href="#i-search"/></svg></button>
         <button class="icon-btn theme-btn" id="themeBtn" aria-label="Cambiar colores de la página"><span class="swatch"></span><span class="tl" id="themeLbl">Claro</span></button>
-        <a class="icon-btn" id="waTop" target="_blank" rel="noopener" href="https://wa.me/5493812194874?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n." aria-label="Escribir por WhatsApp"><svg><use href="#i-chat"/></svg></a>
+        <a class="icon-btn only-d" id="waTop" target="_blank" rel="noopener" href="https://wa.me/5493812194874?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n." aria-label="Escribir por WhatsApp"><svg><use href="#i-chat"/></svg></a>
         <a class="btn btn-gold btn-sm cta-top" target="_blank" rel="noopener" href="https://wa.me/5493812194874?text=Hola%20La%20Uni%C3%B3n!%20Quiero%20pedir%20un%20presupuesto.">Pedir presupuesto</a>
       </div>
-    </div>
-    <div class="hsearch">
-      <form class="search" data-search role="search"><svg><use href="#i-search"/></svg><label class="sr" for="q2">Buscar muebles</label><input id="q2" type="search" placeholder="¿Qué estás buscando? Ej: cómoda, rack…" autocomplete="off"><button class="go" type="submit">Buscar</button></form>
     </div>
   </div>
 </header>
@@ -527,12 +567,17 @@ body.sheet-open .fab{display:none}
 
 <div class="drawer" id="drawer" aria-hidden="true">
   <div class="panel" role="dialog" aria-label="Menú">
+    <div class="dscroll">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <svg viewBox="0 0 320 460" style="height:44px;width:auto"><use href="#mark"/></svg>
       <button class="icon-btn" data-close-drawer aria-label="Cerrar menú"><svg><use href="#i-x"/></svg></button>
     </div>
     <div id="dRooms"></div>
     <div><h4>Colores de la página</h4><div class="seg" id="themeSeg" role="group" aria-label="Colores de la página"></div></div>
+    </div>
+    <div class="dsearch">
+      <form class="search" data-search role="search"><svg><use href="#i-search"/></svg><label class="sr" for="q2">Buscar muebles</label><input id="q2" type="search" placeholder="Decime qué estás buscando" autocomplete="off" enterkeyhint="search"><button class="go" type="submit">Buscar</button></form>
+    </div>
   </div>
   <div class="veil" data-close-drawer></div>
 </div>
@@ -718,7 +763,11 @@ body.sheet-open .fab{display:none}
   </div>
 </footer>
 
-<a class="fab" target="_blank" rel="noopener" href="https://wa.me/5493812194874?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n." aria-label="Consultar por WhatsApp"><svg><use href="#i-chat"/></svg>Consultar</a>
+<a class="fab" target="_blank" rel="noopener" href="https://wa.me/5493812194874?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n." aria-label="Consultar por WhatsApp"><svg><use href="#i-wa"/></svg></a>
+<div class="sfab-wrap" id="sfab">
+  <button class="sfab" data-open-search aria-label="Buscar en el catálogo"><svg><use href="#i-search"/></svg></button>
+  <button class="stip" data-open-search tabindex="-1">Decime lo que estás buscando</button>
+</div>
 
 <div class="sheet" id="sheet" aria-hidden="true">
   <div class="veil" data-close-sheet></div>
@@ -786,7 +835,7 @@ function chipsOf(p) {
 }
 function card(p, opts = {}) {
   const ph = p.ph.slice(0, 6), chips = chipsOf(p);
-  const badge = p.c ? `Cód. ${p.c.slice(-4)}` : (p.s || p.t);
+  const badge = p.s || p.t;
   return `<article class="pcard${opts.wide ? " wide" : ""}" data-i="${p.i}" tabindex="0" aria-label="${esc(p.n)}">
     <div class="media">${markSVG}
       <span class="badge">${esc(badge)}</span>
@@ -799,8 +848,7 @@ function card(p, opts = {}) {
       <p class="pkind">${esc(p.k)}</p>
       <p class="pdims">${esc(dimsLine(p))}</p>
       ${chips.length ? `<div class="pchips">${chips.slice(0, 2).map(c => `<span>${esc(c)}</span>`).join("")}</div>` : ""}
-      <p class="pperks"><svg><use href="#i-check"/></svg>A tu medida · Cuotas semanales</p>
-      <p class="pprice${p.pr ? "" : " ask"}">${esc(p.pr || "Consultá el precio")}</p>
+      ${p.pr ? `<p class="pprice">${esc(p.pr)}</p>` : ""}
       <a class="btn btn-gold btn-sm btn-block pcta" target="_blank" rel="noopener" href="${wa(p.w)}">Consultar</a>
     </div>
   </article>`;
@@ -984,7 +1032,7 @@ function goSearch(q) { Object.assign(state, {q, room: null, side: null, type: nu
 function clearSearch() { $$("[data-search] input").forEach(i => i.value = ""); }
 function goHome(anchor) { show("home", !anchor); if (anchor) { const el = $(anchor); el && el.scrollIntoView({block: "start"}); } }
 
-$$("[data-search]").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const v = $("input", f).value.trim(); $$("[data-search] input").forEach(i => i.value = v); if (v) goSearch(v); }));
+$$("[data-search]").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const v = $("input", f).value.trim(); $$("[data-search] input").forEach(i => i.value = v); if (v) { closeDrawer(); goSearch(v); } }));
 $("#rTypes").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; state.type = c.dataset.type || null; state.shown = 12; renderResults(); });
 $("#rSizes").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c || c.classList.contains("sel")) return; state.size = c.dataset.size; state.shown = 12; renderResults(); });
 $("#rSizes").addEventListener("change", e => { if (e.target.id === "sort") { state.sort = e.target.value; renderResults(); } });
@@ -1027,9 +1075,10 @@ function calcHTML(id, compact) {
   return `<div class="calc" data-calc>
     ${compact ? "" : `<span class="eyebrow">Tarjetas · Visa, Mastercard y Naranja</span><h3>Calculá tus cuotas</h3>`}
     <label for="${id}">${compact ? "Si ya tenés tu presupuesto, calculá las cuotas con tarjeta" : "Monto de tu presupuesto"}</label>
-    <div class="money"><span>$</span><input id="${id}" inputmode="numeric" value="450.000" aria-label="Monto en pesos"></div>
-    <div class="plans">${plans(450000)}</div>
-    <p class="note">Recargos del local: 3 cuotas +17,4% · 6 cuotas +24,6% · 9 cuotas +34,8% · 12 cuotas +44,7%. El monto es un ejemplo; el valor final lo confirma tu presupuesto.</p>
+    <div class="money"><span>$</span><input id="${id}" inputmode="numeric" value="200.000" aria-label="Monto en pesos"></div>
+    <div class="plans">${plans(200000)}</div>
+    <p class="note">Recargos con tarjeta: 3 cuotas +17,4% · 6 cuotas +24,6% · 9 cuotas +34,8% · 12 cuotas +44,7%.</p>
+    <p class="warn" role="note"><svg><use href="#i-info"/></svg>Los precios son únicos por proyecto. Esto es solo una calculadora de ejemplo.</p>
   </div>`;
 }
 function plans(v) { return RATES.map(([n, r]) => `<div class="plan"><small>${n} cuotas de</small><b>$ ${ars(v * (1 + r) / n)}</b><em>Total $ ${ars(v * (1 + r))}</em></div>`).join(""); }
@@ -1055,7 +1104,7 @@ function openProduct(i) {
     </div>
     <div class="d-info">
       <div><span class="eyebrow">${esc(r.l)} · ${esc(p.t)}</span><h2 id="dName" style="margin-top:8px">${esc(p.n)}</h2><p class="d-kind" style="margin-top:6px">${esc(p.k)}</p></div>
-      <div class="d-price"><b>${esc(p.pr || "Consultá el precio")}</b><span>Hecho en nuestro taller de Tucumán${p.c ? ` · Código ${esc(p.c)}` : ""}</span></div>
+      <div class="d-price">${p.pr ? `<b>${esc(p.pr)}</b>` : ""}<span>Hecho en nuestro taller de Tucumán${p.c ? ` · Código ${esc(p.c)}` : ""}</span></div>
       ${chips.length ? `<div class="d-chips">${chips.map(c => `<span>${esc(c)}</span>`).join("")}</div>` : ""}
       <div class="dimbox">
         <span class="eyebrow">Medidas</span>
@@ -1121,11 +1170,15 @@ $("#pgal").addEventListener("click", e => { const b = e.target.closest(".proj");
 /* ---------- global clicks ---------- */
 const drawer = $("#drawer");
 function closeDrawer() { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); }
-function openDrawer() { drawer.classList.add("open"); drawer.setAttribute("aria-hidden", "false"); }
-$("#menuBtn").addEventListener("click", openDrawer);
+function openDrawer(focusSearch) {
+  drawer.classList.add("open"); drawer.setAttribute("aria-hidden", "false");
+  if (focusSearch === true) setTimeout(() => $("#q2").focus(), 320);
+}
+$("#menuBtn").addEventListener("click", () => openDrawer());
 document.addEventListener("click", e => {
   const t = e.target;
   if (t.closest("a[target]")) return;
+  if (t.closest("[data-open-search]")) { openDrawer(true); return; }
   if (t.closest("[data-open-drawer]")) { openDrawer(); return; }
   if (t.closest("[data-close-drawer]")) closeDrawer();
   const go = t.closest("[data-go-home]");
@@ -1149,6 +1202,23 @@ document.addEventListener("keydown", e => {
 
 /* ---------- misc ---------- */
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("on"), 1600); }
+/* mobile: header leaves once you scroll down; search + WhatsApp stay as floating buttons */
+let lastY = scrollY, lastTip = 0, tipT;
+const sfab = $("#sfab");
+addEventListener("scroll", () => {
+  const y = scrollY, hidden = document.body.classList.contains("nav-hidden");
+  if (!hidden && y > 160 && y > lastY + 4) {
+    document.body.classList.add("nav-hidden");
+    if (Date.now() - lastTip > 20000) {
+      lastTip = Date.now(); clearTimeout(tipT);
+      setTimeout(() => sfab.classList.add("tip"), 650);
+      tipT = setTimeout(() => sfab.classList.remove("tip"), 3400);
+    }
+  } else if (hidden && y < 90) {
+    document.body.classList.remove("nav-hidden"); sfab.classList.remove("tip");
+  }
+  lastY = y;
+}, {passive: true});
 if (reduce) document.querySelectorAll("svg").forEach(s => s.pauseAnimations && s.pauseAnimations());
 $("#calcHome").innerHTML = calcHTML("amountHome");
 renderHome(); renderAside(); renderProjects();
