@@ -15,7 +15,7 @@ Todo funciona con **datos de ejemplo** guardados en el navegador, para mostrar e
 ## Estructura
 
 ```
-index.html                 Web pública (no depende del resto)
+index.html                 Web pública (solo usa assets/js/galeria.js y el modelo 3D)
 seguimiento/index.html     Seguimiento del cliente
 admin/index.html           Panel interno (una sola página con rutas)
 assets/
@@ -26,6 +26,8 @@ assets/
   js/store.js              Capa de datos (hoy: navegador; mañana: Supabase)
   js/ui.js                 Íconos, modales, avisos, foto ampliada
   js/tracking.js           Lógica del seguimiento
+  js/galeria.js            Galería del detalle de producto + visor 3D (model-viewer)
+  productos/mock/          Modelo 3D de prueba, el mismo para todos los productos (ver su README)
   js/data/catalog.js       Catálogo real extraído de la web actual
   js/data/seed.js          Usuarios, clientes, órdenes, cobros y caja de ejemplo
   js/admin/app.js          Rutas, permisos por rol y menú
