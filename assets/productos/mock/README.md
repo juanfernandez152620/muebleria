@@ -12,14 +12,25 @@ Las rutas se configuran en `MODELO_3D`, arriba de todo en `assets/js/galeria.js`
 | `modelo.usdz` | Para AR en iPhone | Mismo modelo exportado a USDZ. Cuando lo agregues, poné su ruta en `usdz` dentro de `MODELO_3D` (hoy está vacío y model-viewer genera el USDZ solo a partir del GLB). |
 | `poster.webp` | Sí | Captura del modelo, mismo encuadre que la cámara inicial (`camera-orbit="-30deg 75deg 105%"`), proporción 4:5 como la galería, ~1200 px de alto. Con fondo transparente se adapta a los tres temas de color. |
 
-**Ahora hay archivos temporales:** `modelo.glb` es *GlamVelvetSofa* de [Khronos glTF-Sample-Assets](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/GlamVelvetSofa),
-© 2021 Wayfair, LLC (modelo de Eric Chadwick), licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-`poster.webp` es una captura de ese mismo modelo. Si se usan en público hay que mantener el crédito. Reemplazalos por el modelo propio.
+**Ahora hay archivos de prueba:** `modelo.glb` es una estantería exportada de Blender, con las texturas reducidas de 4K a 2K WebP
+(de 10,8 MB a 0,5 MB). `poster.webp` es una captura de ese modelo con la cámara inicial.
+Ojo: el modelo mide 10,2 × 9,0 × 2,5 m y tiene el origen en el centro, no en la base. En "Ver en tu espacio" va a aparecer gigante.
+Hay que corregir la escala en Blender (o con `gltf-transform`) antes de mostrar el AR.
 
 ## Optimizar el modelo
 
 ```bash
 npx @gltf-transform/cli optimize entrada.glb modelo.glb --compress meshopt --texture-compress webp --texture-size 2048
+```
+
+Si el modelo tiene mapa normal (`normalTexture`), la compresión WebP con pérdida lo arruina: aparecen manchas en cuadraditos
+sobre superficies lisas. En ese caso comprimí el normal sin pérdida (así se hizo el de prueba):
+
+```bash
+npx @gltf-transform/cli optimize entrada.glb t1.glb --compress false --texture-compress false
+npx @gltf-transform/cli resize t1.glb t2.glb --width 2048 --height 2048
+npx @gltf-transform/cli webp t2.glb t3.glb --slots "{baseColorTexture,metallicRoughnessTexture}"
+npx @gltf-transform/cli webp t3.glb modelo.glb --slots "normalTexture" --lossless
 ```
 
 Para revisar el resultado (triángulos, peso, texturas):

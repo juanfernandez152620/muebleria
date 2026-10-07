@@ -1,14 +1,12 @@
 /* Galería del detalle de producto (el modal de index.html): fotos + un visor 3D.
    Por ahora el 3D es un modelo de prueba y es el mismo para todos los productos. Rutas en MODELO_3D. */
 const MODELO_3D = {
-  // TEMPORAL: "GlamVelvetSofa" de Khronos glTF-Sample-Assets, © 2021 Wayfair, LLC (modelo de Eric Chadwick),
-  // licencia CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). El poster es una captura de ese modelo.
-  // https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/GlamVelvetSofa — reemplazar por el modelo propio.
+  // Modelo de prueba: estantería (export de Blender, texturas reducidas a 2K WebP). El poster es una captura de este modelo.
   glb: "assets/productos/mock/modelo.glb",
   // iPhone (AR Quick Look): poné "assets/productos/mock/modelo.usdz" cuando lo agregues. Vacío = model-viewer lo genera desde el GLB.
   usdz: "",
   poster: "assets/productos/mock/poster.webp",
-  alt: "Modelo 3D de un sillón tapizado. Arrastrá para girarlo.",
+  alt: "Modelo 3D de una estantería de madera. Arrastrá para girarla.",
 };
 const MODEL_VIEWER_JS = "https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js";
 
