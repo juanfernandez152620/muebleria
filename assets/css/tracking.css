@@ -1,0 +1,136 @@
+/* Seguimiento público · misma paleta que la web, sobria y sin animaciones doradas */
+:root {
+  --bg: #FAF9F6; --surface: #FFFFFF; --ink: #1C1A17; --muted: #5C564F; --line: #E3DED7;
+  --soft: #F3F0EA; --gold: #B4862F; --gold-ink: #7A5A1E; --gold-soft: #F5ECD9;
+  --ok: #2F6B45; --ok-soft: #E4F0E7; --warn: #8A5A0B; --warn-soft: #FBEFD6; --bad: #A23A2C; --bad-soft: #F8E3DF;
+  --wa: #1F8F4E; --shadow: 0 1px 2px rgba(28,26,23,.05), 0 6px 20px rgba(28,26,23,.05);
+  --r: 16px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #22201D; --surface: #2C2926; --ink: #F3EFE9; --muted: #C2BAB0; --line: #47423C; --soft: #35312D;
+    --gold: #D2A650; --gold-ink: #E6C27A; --gold-soft: #3A3226;
+    --ok: #8BCB9F; --ok-soft: #26362B; --warn: #F0C46C; --warn-soft: #3B3122; --bad: #F29A8C; --bad-soft: #3D2622;
+    --wa: #3BB56E; --shadow: none; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 Figtree, system-ui, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+button { font: inherit; color: inherit; }
+img { max-width: 100%; display: block; }
+svg { width: 18px; height: 18px; flex: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.tk-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; padding-top: max(12px, env(safe-area-inset-top)); border-bottom: 1px solid var(--line); background: var(--surface); }
+.tk-brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.tk-brand span { font: 21px/1 Marcellus, Georgia, serif; letter-spacing: .01em; }
+.tk-brand small { font-size: 13px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin-left: 2px; }
+.tk-top-link { color: var(--gold-ink); font-weight: 600; font-size: 14.5px; text-decoration: none; }
+.tk-top-link:hover { text-decoration: underline; }
+
+.tk-main { width: 100%; max-width: 640px; margin: 0 auto; padding: 8px 16px 32px; flex: 1; }
+.tk-loading { color: var(--muted); padding: 40px 0; text-align: center; }
+.tk-hero { padding: 26px 2px 18px; }
+.tk-eyebrow { margin: 0 0 6px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); }
+.tk-hero h1 { margin: 0; font: 400 clamp(30px, 8vw, 40px)/1.1 Marcellus, Georgia, serif; }
+.tk-lead { margin: 10px 0 0; color: var(--muted); font-size: 17px; max-width: 34em; }
+
+.tk-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
+.tk-form { padding: 20px; display: grid; gap: 16px; }
+.tk-field { display: grid; gap: 6px; }
+.tk-field > span { font-weight: 600; font-size: 15px; }
+.tk-field small { color: var(--muted); font-size: 13.5px; }
+.tk-field input { height: 52px; border: 1px solid var(--line); border-radius: 12px; padding: 0 14px; font: 600 19px/1 Figtree, sans-serif; letter-spacing: .04em; background: var(--bg); color: var(--ink); width: 100%; }
+.tk-field input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+.tk-error { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--bad-soft); color: var(--bad); font-weight: 600; font-size: 14.5px; }
+.tk-hint { margin: 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+.tk-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 20px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; font-size: 16px; text-decoration: none; color: var(--ink); cursor: pointer; width: 100%; }
+.tk-btn-primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tk-btn-primary:hover { opacity: .92; }
+.tk-btn-wa { background: var(--wa); border-color: var(--wa); color: #fff; }
+.tk-btn-wa svg { width: 22px; height: 22px; }
+.tk-help { margin-top: 14px; background: transparent; color: var(--wa); border-color: var(--line); }
+.tk-link { background: none; border: 0; color: var(--gold-ink); font-weight: 600; text-decoration: underline; cursor: pointer; padding: 8px; }
+
+.tk-alert { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; margin-bottom: 14px; font-size: 15px; }
+.tk-alert svg { margin-top: 2px; }
+.tk-alert.warn { background: var(--warn-soft); color: var(--warn); }
+.tk-alert.bad { background: var(--bad-soft); color: var(--bad); }
+
+.tk-summary { padding: 16px 18px; }
+.tk-sum-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tk-badge { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 99px; font-weight: 700; font-size: 14px; background: var(--gold-soft); color: var(--gold-ink); }
+.tk-badge.ok { background: var(--ok-soft); color: var(--ok); }
+.tk-badge.warn { background: var(--warn-soft); color: var(--warn); }
+.tk-badge.bad { background: var(--bad-soft); color: var(--bad); }
+.tk-live { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; }
+.tk-live i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.tk-facts { margin: 14px 0 0; display: grid; gap: 0; }
+.tk-facts > div { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-top: 1px solid var(--line); }
+.tk-facts dt { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14.5px; white-space: nowrap; }
+.tk-facts dd { margin: 0; font-weight: 600; text-align: right; font-size: 15px; }
+.tk-facts dd::first-letter { text-transform: uppercase; }
+
+.tk-h2 { font: 400 23px/1.2 Marcellus, Georgia, serif; margin: 28px 2px 12px; }
+.tk-items { display: grid; gap: 14px; }
+.tk-item { padding: 16px; }
+.tk-item-head { display: flex; gap: 14px; align-items: flex-start; }
+.tk-thumb { width: 88px; height: 104px; border-radius: 12px; overflow: hidden; flex: none; padding: 0; border: 1px solid var(--line); background: var(--soft); cursor: zoom-in; display: grid; place-items: center; color: var(--muted); }
+.tk-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.tk-thumb-empty { cursor: default; }
+.tk-item-info { min-width: 0; flex: 1; }
+.tk-item-info h3 { margin: 0; font-size: 17.5px; line-height: 1.25; }
+.tk-item-info > p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.tk-prog { height: 7px; border-radius: 99px; background: var(--soft); overflow: hidden; margin-top: 12px; }
+.tk-prog span { display: block; height: 100%; background: var(--gold); border-radius: 99px; transition: width .4s ease; }
+.tk-item-info .tk-prog-txt { margin-top: 7px; font-size: 14px; color: var(--muted); }
+.tk-prog-txt b { color: var(--ink); font-weight: 600; }
+
+.tk-steps { list-style: none; margin: 18px 0 0; padding: 16px 0 0; border-top: 1px solid var(--line); }
+.tk-steps li { position: relative; display: flex; gap: 14px; padding-bottom: 16px; }
+.tk-steps li:last-child { padding-bottom: 0; }
+.tk-steps li:not(:last-child)::before { content: ""; position: absolute; left: 14px; top: 30px; bottom: 2px; width: 2px; background: var(--line); }
+.tk-steps li.done:not(:last-child)::before { background: var(--gold); }
+.tk-dot { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; flex: none; font-size: 13px; font-weight: 700; background: var(--surface); border: 2px solid var(--line); color: var(--muted); position: relative; z-index: 1; }
+.tk-dot svg { width: 16px; height: 16px; }
+.tk-steps li.done .tk-dot { background: var(--gold); border-color: var(--gold); color: #fff; }
+.tk-steps li.cur .tk-dot { border-color: var(--gold); color: var(--gold-ink); background: var(--gold-soft); }
+.tk-steps li.paused .tk-dot { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.tk-steps li.skip .tk-dot { border-style: dashed; }
+.tk-step { min-width: 0; padding-top: 4px; display: grid; gap: 2px; }
+.tk-step b { font-weight: 600; font-size: 15.5px; color: var(--muted); }
+.tk-steps li.done .tk-step b, .tk-steps li.cur .tk-step b { color: var(--ink); }
+.tk-steps li.cur .tk-step b { font-weight: 700; }
+.tk-steps li.skip .tk-step b { text-decoration: line-through; text-decoration-color: var(--line); }
+.tk-when { font-size: 13.5px; color: var(--muted); }
+.tk-when:empty { display: none; }
+.tk-steps li.cur .tk-when { color: var(--gold-ink); font-weight: 600; }
+.tk-steps li.paused .tk-when { color: var(--warn); }
+.tk-step-photo { margin-top: 8px; padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--soft); cursor: zoom-in; width: min(240px, 100%); position: relative; }
+.tk-step-photo img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.tk-step-photo span { position: absolute; left: 8px; bottom: 8px; display: inline-flex; gap: 6px; align-items: center; background: rgba(20,18,16,.72); color: #fff; font-size: 12.5px; font-weight: 600; padding: 4px 9px; border-radius: 99px; }
+.tk-step-photo svg { width: 14px; height: 14px; }
+
+.tk-help-card { padding: 20px; margin-top: 22px; text-align: center; }
+.tk-help-card h2 { margin: 0; font: 400 22px/1.2 Marcellus, Georgia, serif; }
+.tk-help-card p { margin: 6px 0 16px; color: var(--muted); }
+.tk-other { text-align: center; margin: 16px 0 0; }
+
+.tk-foot { text-align: center; color: var(--muted); font-size: 13px; padding: 20px 16px calc(20px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+.tk-foot p { margin: 0; }
+
+.tk-lb { position: fixed; inset: 0; z-index: 50; background: rgba(12,11,10,.92); display: grid; place-items: center; padding: 16px; cursor: zoom-out; }
+.tk-lb img { max-width: 100%; max-height: 88vh; border-radius: 10px; object-fit: contain; }
+.tk-lb-x { position: absolute; top: max(12px, env(safe-area-inset-top)); right: 12px; width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; }
+
+@media (min-width: 700px) {
+  .tk-main { padding-top: 16px; }
+  .tk-form, .tk-summary, .tk-item { padding: 22px 24px; }
+  .tk-btn { width: auto; }
+  .tk-form .tk-btn, .tk-help { width: 100%; }
+  .tk-thumb { width: 110px; height: 128px; }
+}
+@media (prefers-reduced-motion: reduce) { .tk-prog span { transition: none; } }
